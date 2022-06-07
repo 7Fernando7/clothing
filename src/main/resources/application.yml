@@ -1,0 +1,41 @@
+server:
+  port: 8040
+
+info:
+  name: ${name}
+  version: ${version}
+  description: ${description}
+
+spring:
+  application:
+    name: oms-order
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    open-in-view: true
+    properties:
+      hibernate:
+        default_schema: oms_clothing
+        enable_lazy_load_no_trans: true
+        temp:
+          use_jdbc_metadata_defaults: false
+#        format_sql: true
+#    show-sql: true
+
+kafka:
+  missingTopicsFatal: false
+  ack: all
+  enableAutoCommit: false
+  specificAvroReader: true
+  bootstrapServers: http://localhost:29092
+  order:
+    person:
+      topic: person_data_loc
+      retries: 3
+      retryTime: 60000
+      group: person_data_group_loc
+      workers: 1
