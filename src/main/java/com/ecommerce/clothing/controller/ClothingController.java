@@ -43,6 +43,7 @@ public class ClothingController {
 
   @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
+
   public ResponseEntity<ClothingDTO> updateClothing(@RequestBody final ClothingDTO clothing) {
 
     final ClothingDTO clothingToUpdateDTO = clothingService.findById(clothing.getId());

@@ -58,9 +58,4 @@ public class ClothingServiceImpl implements ClothingService {
 
   }
 
-  /*
-   * @Override public Clothing deleteClothing(final Clothing clothing) {
-   * clothingRepository.delete(clothing); return clothing; }
-   */
-
 }
