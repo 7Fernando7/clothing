@@ -49,17 +49,16 @@ public class ClothingController {
     final ClothingDTO clothingToUpdateDTO = clothingService.updateClothing(clothing);
 
     return new ResponseEntity<ClothingDTO>(clothingToUpdateDTO, HttpStatus.OK);
-
   }
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ClothingDTO> deleteClhothing(@PathVariable final int id) {
+  public ResponseEntity<Void> deleteClhothing(@PathVariable final int id) {
 
     final ClothingDTO clothingDeleteDTO = clothingService.findById(id);
 
     clothingService.deleteClothing(clothingDeleteDTO);
 
-    return new ResponseEntity<ClothingDTO>(clothingDeleteDTO, HttpStatus.OK);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
 }

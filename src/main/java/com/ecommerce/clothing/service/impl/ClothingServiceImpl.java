@@ -47,12 +47,6 @@ public class ClothingServiceImpl implements ClothingService {
   }
 
   @Override
-  public ClothingDTO deleteClothing(final ClothingDTO clothingDeleteDTO) {
-    clothingRepository.deleteById(clothingDeleteDTO.getId());
-    return clothingDeleteDTO;
-  }
-
-  @Override
   public ClothingDTO updateClothing(final ClothingDTO clothingDTO) {
 
     final Optional<Clothing> clothingToUpdate = clothingRepository.findById(clothingDTO.getId());
@@ -66,6 +60,14 @@ public class ClothingServiceImpl implements ClothingService {
 
     return clothingDTO;
 
+  }
+
+  @Override
+  public ClothingDTO deleteClothing(final ClothingDTO clothingDeleteDTO) {
+
+    clothingRepository.deleteById(clothingDeleteDTO.getId());
+
+    return clothingDeleteDTO;
   }
 
 }
