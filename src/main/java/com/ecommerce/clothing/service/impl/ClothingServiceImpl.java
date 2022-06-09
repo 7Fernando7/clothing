@@ -35,6 +35,7 @@ public class ClothingServiceImpl implements ClothingService {
   public ClothingDTO registerProducts(final ClothingDTO clothingDTO) {
 
     final Clothing clothing = new Clothing();
+
     clothing.setClothingName(clothingDTO.getClothingName());
     clothing.setClothingSizeId(
       EnumClothingSizes.getCodeByDescription(clothingDTO.getClothingSizeDescription()).getCode());
@@ -46,15 +47,24 @@ public class ClothingServiceImpl implements ClothingService {
   }
 
   @Override
-  public Optional<Clothing> updateClothing(final ClothingDTO product) {
+  public ClothingDTO deleteClothing(final ClothingDTO clothingDeleteDTO) {
+    clothingRepository.deleteById(clothingDeleteDTO.getId());
+    return clothingDeleteDTO;
+  }
 
-    final Optional<Clothing> clothingToUpdate = clothingRepository.findById(product.getId());
+  @Override
+  public ClothingDTO updateClothing(final ClothingDTO clothingDTO) {
 
-    clothingToUpdate.get().setClothingName(product.getClothingName());
+    final Optional<Clothing> clothingToUpdate = clothingRepository.findById(clothingDTO.getId());
 
-    clothingRepository.save(clothingToUpdate.get());
+    final Clothing clothing = new Clothing();
+    clothing.setId(clothingDTO.getId());
+    clothing.setClothingName(clothingDTO.getClothingName());
+    clothing.setClothingSizeId(clothingToUpdate.get().getClothingSizeId());
 
-    return clothingToUpdate;
+    clothingRepository.save(clothing);
+
+    return clothingDTO;
 
   }
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,37 +44,22 @@ public class ClothingController {
 
   @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-
   public ResponseEntity<ClothingDTO> updateClothing(@RequestBody final ClothingDTO clothing) {
 
-    final ClothingDTO clothingToUpdateDTO = clothingService.findById(clothing.getId());
+    final ClothingDTO clothingToUpdateDTO = clothingService.updateClothing(clothing);
 
-    if (clothingToUpdateDTO == null) {
-      return new ResponseEntity<ClothingDTO>(clothingToUpdateDTO, HttpStatus.NOT_FOUND);
-    } else {
-      final ClothingDTO clothingToUpdateDTO1 = clothingService.findById(clothing.getId());
-      return new ResponseEntity<ClothingDTO>(clothingToUpdateDTO1, HttpStatus.OK);
+    return new ResponseEntity<ClothingDTO>(clothingToUpdateDTO, HttpStatus.OK);
 
-    }
   }
 
-  /*
-   * @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces =
-   * MediaType.APPLICATION_JSON_VALUE) public ResponseEntity<Clothing>
-   * deleteClhothing(@PathVariable final int id) { final Clothing clothing =
-   * clothingService.findById(id);
-   *
-   * if (clothing == null) {
-   *
-   * return new ResponseEntity<Clothing>(clothing, HttpStatus.NOT_FOUND);
-   *
-   * } else {
-   *
-   * clothingService.deleteClothing(clothing);
-   *
-   * return new ResponseEntity<Clothing>(clothing, HttpStatus.OK); }
-   *
-   * }
-   */
+  @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ClothingDTO> deleteClhothing(@PathVariable final int id) {
+
+    final ClothingDTO clothingDeleteDTO = clothingService.findById(id);
+
+    clothingService.deleteClothing(clothingDeleteDTO);
+
+    return new ResponseEntity<ClothingDTO>(clothingDeleteDTO, HttpStatus.OK);
+  }
 
 }
